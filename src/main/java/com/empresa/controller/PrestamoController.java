@@ -32,5 +32,39 @@ public class PrestamoController {
 		return ResponseEntity.ok(lista);
 	}
 	
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Prestamo> eliminarPorId(@PathVariable("id") int cod_cli){
+        Optional<Prestamo> optCliente = service.obtienePorId(cod_cli);
+        if(optCliente.isPresent()) {
+            service.eliminaPrestamo(cod_cli);
+            return ResponseEntity.ok(optCliente.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Prestamo> listaPorId(@PathVariable("id") int idPrestamo){
+        Optional<Prestamo> optAlumno =  service.obtienePorId(idPrestamo);
+        if (optAlumno.isPresent()) {
+            return ResponseEntity.ok(optAlumno.get());
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<Prestamo> registra(@RequestBody Prestamo obj){
+        return ResponseEntity.ok(service.insertaActualizaPrestamo(obj));
+    }
+
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<Prestamo> actualiza(@RequestBody Prestamo obj){
+        return ResponseEntity.ok(service.insertaActualizaPrestamo(obj));
 	
+}
 }

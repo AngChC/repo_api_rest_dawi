@@ -28,4 +28,9 @@ public class PrestamoServiceImpl implements PrestamoService {
 	public void eliminaPrestamo(int id) {
 		repository.deleteById(id);
 	}
+	@Override
+	public Optional<Prestamo> obtienePorId(int idPrestamo) {
+		return repository.findById(idPrestamo);
+	}
+
 }
